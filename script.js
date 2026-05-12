@@ -2,27 +2,49 @@
 
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, id) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.id = crypto.randomUUID();
 }
 
-// const book1 = new Book("The Count of Monte Cristo", "Alexander Dumas", 1200, true);
-
-// const book2 = new Book("Wounded by Love", "Saint Porphyrios", 200, true);
 
 
-function addBookToLibrary(title, author, pages, read) {
+function addBookToLibrary(title, author, pages, read, id) {
     
-    const book = new Book(title, author, pages, read)
+    const book = new Book(title, author, pages, read, id)
     myLibrary.push(book)
 
 }
 
-addBookToLibrary();
-addBookToLibrary();
-addBookToLibrary();
+addBookToLibrary("The Count of Monte Cristo", "Alexander Dumas", 1200, true);
+addBookToLibrary("Wounded by Love", "Saint Porphyrios", 200, true);
+
 
 console.log(myLibrary)
+
+
+// step 3
+
+const listContainer = document.getElementById('book-list')
+
+myLibrary.forEach(book => {
+
+const bookDiv = document.createElement('div');
+bookDiv.className = "book-card"
+
+bookDiv.innerHTML = `
+    <h1>${book.title}</h1>
+    <h3>Author: ${book.author}</h3>
+    <h3>Pages: ${book.pages}</h3>
+    <h3>Read before?: ${book.read}</h3>
+    <p>${book.id}</p>
+`;
+
+listContainer.appendChild(bookDiv);
+
+});
+
+// step 4
