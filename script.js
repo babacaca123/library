@@ -1,6 +1,6 @@
 
 
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(title, author, pages, read, id) {
     this.title = title;
@@ -10,6 +10,9 @@ function Book(title, author, pages, read, id) {
     this.id = crypto.randomUUID();
 }
 
+Book.prototype.toggleRead = function () {
+    this.read = !this.read;
+  };
 
 
 function addBookToLibrary(title, author, pages, read, id) {
@@ -21,6 +24,9 @@ function addBookToLibrary(title, author, pages, read, id) {
 
 addBookToLibrary("The Count of Monte Cristo", "Alexander Dumas", 1200, true);
 addBookToLibrary("Wounded by Love", "Saint Porphyrios", 200, true);
+addBookToLibrary("Narnia", "C.S. Lewis", 289, true);
+
+renderLibrary();
 
 
 console.log(myLibrary)
@@ -35,6 +41,9 @@ function renderLibrary(){
 
     const listContainer = document.getElementById('book-list')
 
+    listContainer.innerHTML = "";
+
+
     myLibrary.forEach(book => {
 
     const bookDiv = document.createElement('div');
@@ -46,11 +55,46 @@ function renderLibrary(){
         <h3>Pages: ${book.pages}</h3>
         <h3>Read before?: ${book.read}</h3>
         <p>${book.id}</p>
+        <button class="delete-btn">Delete</button>
+        <button class="toggle-read">Read Status</button>
     `;
 
     listContainer.appendChild(bookDiv);
 
+
+    //step 5
+
+    const deleteBtn = bookDiv.querySelector(".delete-btn");
+
+
+        deleteBtn.addEventListener("click", () => {
+
+            console.log('delete')
+
+
+            myLibrary = myLibrary.filter(libraryBook => 
+                libraryBook.id !== book.id
+            );
+
+            renderLibrary();
+
+        })
+
+
+        // step 6
+
+    const toggleReadBtn = bookDiv.querySelector(".toggle-read");
+
+    
+    toggleReadBtn.addEventListener("click", () => {
+
+        console.log("toggle")
+        book.toggleRead();
+        renderLibrary();
+    })
+
     });
+    
 
 }
 
@@ -66,12 +110,24 @@ const form = document.getElementById("book-form");
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
+
+
+
+
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
+    const read = document.getElementById("read").checked;
+
+
+
+
+    addBookToLibrary(title, author, pages, read);
+    renderLibrary();
+
   })
 
-const title = document.getElementById("title").value;
-const author = document.getElementById("author").value;
-const pages = document.getElementById("pages").value;
-const read = document.getElementById("read").checked;
+// step 5 
 
-addBookToLibrary(title, author, pages, read);
-renderLibrary();
+
+
