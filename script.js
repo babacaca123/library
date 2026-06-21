@@ -53,7 +53,7 @@ function renderLibrary(){
         <h1>${book.title}</h1>
         <h3>Author: ${book.author}</h3>
         <h3>Pages: ${book.pages}</h3>
-        <h3>Read before?: ${book.read}</h3>
+        <h3>Read before: ${book.read}</h3>
         <p>${book.id}</p>
         <button class="delete-btn">Delete</button>
         <button class="toggle-read">Read Status</button>
