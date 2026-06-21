@@ -108,14 +108,32 @@ btn.addEventListener("click", () => {
 
 const form = document.getElementById("book-form");
 
+
+// validation edits
+
+const errorMessage = document.getElementById('error-message')
+
 form.addEventListener("submit", (event) => {
     event.preventDefault();
 
 
+    const author = document.getElementById("author").value;
+
+    errorMessage.textContent = '';
+
+    const minLength = 1;
+
+    if(author.length < minLength){
+        event.preventDefault();
+
+        errorMessage.textContent = "the author name must be filled!";
+
+        return;
+    }
 
 
     const title = document.getElementById("title").value;
-    const author = document.getElementById("author").value;
+
     const pages = document.getElementById("pages").value;
     const read = document.getElementById("read").checked;
 
